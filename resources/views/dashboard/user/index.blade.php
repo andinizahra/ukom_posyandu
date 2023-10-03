@@ -3,11 +3,10 @@
 @section('content')
     <div class="row">
         <div class="col d-flex justify-content-between mb-2">
-            <a class="btn btn-primary" href="{{url('/dashboard')}}"><i class="bi-arrow-left-circle"></i>
+            <a class="btn btn-gradient" href="{{url('/dashboard')}}">
                 Kembali</a>
             <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                    data-bs-target="#tambah-user-modal"><i
-                    class="bi bi-person-fill-add"></i> Tambah
+                    data-bs-target="#tambah-user-modal"> Tambah
             </button>
             <!-- Tambah User Modal -->
             <div class="modal fade" id="tambah-user-modal" tabindex="-1"
@@ -40,7 +39,7 @@
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                 Cancel
                             </button>
-                            <button type="submit" class="btn btn-primary" form="tambah-user-form">Tambah</button>
+                            <button type="submit" class="btn btn-gradient" form="tambah-user-form">Tambah</button>
                         </div>
                     </div>
                 </div>
@@ -68,7 +67,7 @@
                                 <td class="text-capitalize">{{$u->role}}</td>
                                 <td class="col-2">
                                     <!-- Button trigger edit modal -->
-                                    <button type="button" class="editBtn btn btn-primary" data-bs-toggle="modal"
+                                    <button type="button" class="editBtn btn btn-gradient" data-bs-toggle="modal"
                                             data-bs-target="#edit-modal-{{$u->id}}" idUser="{{$u->id}}">
                                         Edit
                                     </button>
@@ -109,7 +108,7 @@
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                 Cancel
                                             </button>
-                                            <button type="submit" class="btn btn-primary edit-btn"
+                                            <button type="submit" class="btn btn-gradient edit-btn"
                                                     form="edit-user-form-{{$u->id}}">
                                                 Edit
                                             </button>

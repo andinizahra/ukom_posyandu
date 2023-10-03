@@ -1,17 +1,17 @@
 .bg-c-blue {
-    background: linear-gradient(45deg,#4099ff,#73b4ff);
+    background: linear-gradient(45deg,blue,green);
 }
 
 .bg-c-green {
-    background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+    background: linear-gradient(45deg,green,yellow);
 }
 
 .bg-c-yellow {
-    background: linear-gradient(45deg,#FFB64D,#ffcb80);
+    background: linear-gradient(45deg,yellow,pink);
 }
 
 .bg-c-pink {
-    background: linear-gradient(45deg,#FF5370,#ff869a);
+    background: linear-gradient(45deg,pink,blue);
 }
 
 .card {
@@ -39,3 +39,23 @@
 .f-right {
     float: right;
 }
+
+.btn-gradient {
+    background: linear-gradient(to right, yellow, gold);
+    color: white; /* Mengubah warna teks menjadi putih agar terlihat dengan baik */
+    border: none; /* Menghapus garis tepi jika ada */
+    /* padding: 10px 20px;  */
+ 
+}
+
+
+/* Mengatur efek gradient pada teks */
+.text-gradient {
+    background-image: linear-gradient(to right, yellow, gold); /* Ganti kode warna sesuai dengan gradient yang kamu inginkan */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; /* Membuat teks asli menjadi transparan */
+}
+
+
+

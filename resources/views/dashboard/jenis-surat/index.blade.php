@@ -3,11 +3,10 @@
 @section('content')
     <div class="row">
         <div class="col d-flex justify-content-between mb-2">
-            <a class="btn btn-primary" href="{{url('/dashboard')}}"><i class="bi-arrow-left-circle"></i>
+            <a class="btn btn-gradient" href="{{url('/dashboard')}}">
                 Kembali</a>
             <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                    data-bs-target="#tambah-jenis-surat-modal"><i
-                    class="bi bi-envelope-plus-fill"></i> Tambah
+                    data-bs-target="#tambah-jenis-surat-modal"> Tambah
             </button>
             <!-- Tambah Jenis Surat Modal -->
             <div class="modal fade" id="tambah-jenis-surat-modal" tabindex="-1"
@@ -33,7 +32,7 @@
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                 Cancel
                             </button>
-                            <button type="submit" class="btn btn-primary" form="tambah-jenis-surat-form">Tambah</button>
+                            <button type="submit" class="btn btn-gradient" form="tambah-jenis-surat-form">Tambah</button>
                         </div>
                     </div>
                 </div>
@@ -59,7 +58,7 @@
                                 <td>{{$js->jenis_surat}}</td>
                                 <td class="col-2">
                                     <!-- Button trigger edit modal -->
-                                    <button type="button" class="editBtn btn btn-primary" data-bs-toggle="modal"
+                                    <button type="button" class="editBtn btn btn-gradient" data-bs-toggle="modal"
                                             data-bs-target="#edit-modal-{{$js->id}}" idJS="{{$js->id}}">
                                         Edit
                                     </button>
@@ -91,7 +90,7 @@
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                 Cancel
                                             </button>
-                                            <button type="submit" class="btn btn-primary edit-btn"
+                                            <button type="submit" class="btn btn-gradient edit-btn"
                                                     form="edit-js-form-{{$js->id}}">
                                                 Edit
                                             </button>

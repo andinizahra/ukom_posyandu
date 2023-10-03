@@ -4,11 +4,10 @@
 @section('content')
     <div class="row">
         <div class="col d-flex justify-content-between mb-2">
-            <a class="btn btn-primary" href="{{url('/dashboard')}}"><i class="bi-arrow-left-circle"></i>
+            <a class="btn btn-gradient" href="{{url('/dashboard')}}">
                 Kembali</a>
             <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                    data-bs-target="#tambah-surat-modal"><i
-                    class="bi bi-envelope-plus"></i> Tambah
+                    data-bs-target="#tambah-surat-modal"> Tambah
             </button>
             <!-- Tambah Surat Modal -->
             <div class="modal fade" id="tambah-surat-modal" tabindex="-1"
@@ -61,7 +60,7 @@
                                     data-bs-dismiss="modal">
                                 Cancel
                             </button>
-                            <button type="submit" class="btn btn-primary" form="tambah-surat-form">Tambah</button>
+                            <button type="submit" class="btn btn-gradient" form="tambah-surat-form">Tambah</button>
                         </div>
                     </div>
                 </div>
@@ -97,7 +96,7 @@
                                 <td>{{$s->ringkasan}}</td>
                                 <td class="col-1">
                                     @if($s->file)
-                                        <a class="btn btn-primary"
+                                        <a class="btn btn-gradient"
                                            href="{{url("dashboard/surat?path=$s->file", ['download'])}}">Download</a>
                                     @else
                                         <p>No File</p>
@@ -169,7 +168,7 @@
                                                     data-bs-dismiss="modal">
                                                 Cancel
                                             </button>
-                                            <button type="submit" class="btn btn-primary edit-btn"
+                                            <button type="submit" class="btn btn-gradient edit-btn"
                                                     form="edit-surat-form-{{$s->id}}">
                                                 Edit
                                             </button>

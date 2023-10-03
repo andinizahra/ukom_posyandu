@@ -2,36 +2,41 @@
 @section('title', 'Login')
 @section('content')
     <section class="vh-80">
-        <div class="container py-5 h-100">
-            <div class="row d-flex align-items-center justify-content-center h-100">
-                <div class="col-md-8 col-lg-7 col-xl-6">
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
-                         class="img-fluid" alt="Phone image">
-                </div>
-                <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-                    <form action="">
-                        <!-- Email input -->
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="username">Username</label>
-                            <input type="text" id="username" class="form-control form-control-lg" name="username"
-                                   required autocomplete="username"/>
-                        </div>
+        <div class="container-fluid py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100 pt-5">
+                <div class="col-md-8 col-lg-6 col-xl-4 pt-5 mt-5">
+                    <div class="card bg-dark shadow-lg">
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <h2 class="text-gradient">Selamat Datang</h2>
+                                <p class="text-gradient">Silakan masuk ke akun Anda</p>
+                            </div>
+                            <form action="">
+                                <!-- Username input -->
+                                <div class="mb-3">
+                                    <label for="username" class="form-label text-gradient">Username</label>
+                                    <input type="text" id="username" class="form-control" name="username"
+                                           required autocomplete="username"/>
+                                </div>
 
-                        <!-- Password input -->
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="password">Password</label>
-                            <input type="password" id="password" class="form-control form-control-lg" name="password"
-                                   required/>
-                        </div>
+                                <!-- Password input -->
+                                <div class="mb-3">
+                                    <label for="password" class="form-label text-gradient">Password</label>
+                                    <input type="password" id="password" class="form-control" name="password"
+                                           required/>
+                                </div>
 
-                        <div class="text-danger errors">
-                            <p class="err-message"></p>
-                        </div>
-                        @csrf
+                                <div class="text-danger errors">
+                                    <p class="err-message"></p>
+                                </div>
 
-                        <!-- Submit button -->
-                        <button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
-                    </form>
+                                <!-- Submit button -->
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-gradient btn-lg btn-block">Login</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

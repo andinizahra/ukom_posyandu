@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col d-flex justify-content-between mb-2">
-            <a class="btn btn-primary" href="{{url('/dashboard')}}"><i class="bi-arrow-left-circle"></i>
+            <a class="btn btn-gradient" href="{{url('/dashboard')}}">
                 Kembali</a>
         </div>
     </div>

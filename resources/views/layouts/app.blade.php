@@ -20,21 +20,24 @@
 
     <style>
         .navbar .nav-item .nav-link:hover {
-            color: #227dff;
+            background-image: linear-gradient(to right, gold, yellow);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
         }
     </style>
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
-<body class="bg-white">
+<body class="bg-dark">
 <div id="app">
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <a class="navbar-brand text-primary fw-bold d-flex align-items-center " href="{{ url('/dashboard') }} ">
-                <img src="{{asset('mail.png')}}" class="w-25">
-                <h2 class="fw-bold m-0">
-                    Mairilll
+            <a class="navbar-brand  text-warning fw-bold d-flex align-items-center " href="{{ url('/dashboard') }} ">
+                <!-- <img src="{{asset('mail.png')}}" class="w-25"> -->
+                <h2 class="fw-bold m-0 text-gradient" style="">
+                    Sam
                 </h2>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -49,17 +52,17 @@
                     <!-- Authentication Links -->
                     @guest
                         @if (Route::has('login'))
-                            <li class="nav-item">
+                            <li class="nav-item text-gradient">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                         @endif
 
                     @else
                         <li class="nav-item mx-4 d-flex align-items-center">
-                            <h1 class="m-auto mx-2"><i class="bi bi-person-circle"></i></h1>
+                            <h1 class="m-auto mx-2 text-gradient"><i class="bi bi-person"></i></h1>
                             <div>
-                                <p class="mb-0 fs-5">{{Auth::user()->username}}</p>
-                                <p class="text-capitalize m-0 text-secondary">{{Auth::user()->role}}</p>
+                                <p class="mb-0 fs-5 text-gradient" >{{Auth::user()->username}}</p>
+                                <p class="text-capitalize m-0 text-white">{{Auth::user()->role}}</p>
                             </div>
                         </li>
                         <li class="nav-item">
