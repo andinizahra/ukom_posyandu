@@ -27,7 +27,7 @@ class UserRequest extends FormRequest
         return [
             'username' => ['required', 'max:200'],
             'password' => ['required'],
-            'role' => ['required', Rule::in(['admin', 'operator'])]
+            'role' => ['required', Rule::in(['admin', 'kader', 'keluarga'])]
         ];
     }
 

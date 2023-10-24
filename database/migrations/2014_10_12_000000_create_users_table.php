@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('username', 200)->nullable(false);
             $table->text('password')->nullable(false);
-            $table->enum('role', ['admin', 'operator']);
+            $table->enum('role', ['admin', 'keluarga', 'kader']);
             $table->timestamps();
         });
     }

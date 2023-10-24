@@ -1,29 +1,37 @@
 @extends('layouts.app')
-@section('title', 'Manajemen Jenis Surat')
+@section('title', 'Catatan Vaksin')
 @section('content')
     <div class="row">
         <div class="col d-flex justify-content-between mb-2">
-            <a class="btn btn-gradient" href="{{url('/dashboard')}}">
+            <a class="btn btn-gradient" style="background-color:#030A48; color: white" href="{{url('/dashboard')}}">
                 Kembali</a>
             <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                    data-bs-target="#tambah-jenis-surat-modal"> Tambah
+                    data-bs-target="#tambah-vaksin-modal"> Tambah
             </button>
-            <!-- Tambah Jenis Surat Modal -->
-            <div class="modal fade" id="tambah-jenis-surat-modal" tabindex="-1"
+         <!-- Tambah -->
+            <div class="modal fade" id="tambah-vaksin-modal" tabindex="-1"
                  aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Jenis Surat</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Vaksin</h1>
                         </div>
                         <div class="modal-body">
-                            <form id="tambah-jenis-surat-form">
+                            <form id="tambah-vaksin-form">
                                 <div class="form-group">
-                                    <label>Jenis Surat</label>
-                                    <input placeholder="example" type="text" class="form-control mb-3"
-                                           name="jenis_surat"
-                                           required/>
+                                    <label>Jenis Vaksin</label>
+                                    @foreach($catatan_vaksin as $vs)
+                                    <option @if($vs->catatan_vaksin == 'polio') selected @endif value="polio">
+                                        POLIO 1
+                                    </option>
+                                    <option @if($vs->catatan_vaksin == 'polio') selected @endif value="polio">
+                                        POLIO 2
+                                    </option>
+                                    <option @if($vs->catatan_vaksin == 'polio') selected @endif value="polio">
+                                        POLIO 3
+                                    </option>
+                                    @endforeach
                                     @csrf
                                 </div>
                             </form>
@@ -32,7 +40,7 @@
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                 Cancel
                             </button>
-                            <button type="submit" class="btn btn-gradient" form="tambah-jenis-surat-form">Tambah</button>
+                            <button type="submit" class="btn btn-gradient" form="tambah-vaksin-form">Tambah</button>
                         </div>
                     </div>
                 </div>
@@ -46,52 +54,55 @@
                     <table class="table table-bordered table-hovered DataTable">
                         <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Jenis Surat</th>
+                            <th>No</th>
+                            <th>Jenis Vaksin</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($jenis_surat as $js)
-                            <tr idJS="{{$js->id}}">
-                                <td class="col-1">{{$js->id}}</td>
-                                <td>{{$js->jenis_surat}}</td>
+                            <?php 
+                                $no = 1;
+                            ?>
+                        @foreach($catatan_vaksin as $vs)
+                            <tr idVaksin="{{$vs->id}}">
+                                <td class="col-1">{{$no++}}</td>
+                                <td>{{$vs->vaksin}}</td>
                                 <td class="col-2">
                                     <!-- Button trigger edit modal -->
-                                    <button type="button" class="editBtn btn btn-gradient" data-bs-toggle="modal"
-                                            data-bs-target="#edit-modal-{{$js->id}}" idJS="{{$js->id}}">
+                                    <button type="button" class="editBtn btn btn-gradient" style="color: white" data-bs-toggle="modal"
+                                            data-bs-target="#edit-modal-{{$vs->id}}" idVaksin="{{$vs->id}}">
                                         Edit
                                     </button>
                                     <button class="hapusBtn btn btn-danger">Hapus</button>
                                 </td>
                             </tr>
-                            <!-- Edit Jenis Surat Modal -->
-                            <div class="modal fade" id="edit-modal-{{$js->id}}" tabindex="-1"
+                            <!-- Edit Jenis Vaksin Modal -->
+                            <div class="modal fade" id="edit-modal-{{$vs->id}}" tabindex="-1"
                                  aria-labelledby="exampleModalLabel"
                                  aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Jenis Surat</h1>
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Jenis Vaksin</h1>
                                         </div>
                                         <div class="modal-body">
-                                            <form id="edit-js-form-{{$js->id}}">
+                                            <form id="edit-vs-form-{{$vs->id}}">
                                                 <div class="form-group">
-                                                    <label>Jenis Surat</label>
+                                                    <label>Jenis Vaksin</label>
                                                     <input placeholder="example" type="text" class="form-control mb-3"
-                                                           name="jenis_surat"
-                                                           value="{{$js->jenis_surat}}"
+                                                           name="vaksin"
+                                                           value="{{$vs->vaksin}}"
                                                            required/>
                                                     @csrf
                                                 </div>
                                             </form>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                            <button type="button" class="btn btn-secondary" style="color: white" data-bs-dismiss="modal">
                                                 Cancel
                                             </button>
-                                            <button type="submit" class="btn btn-gradient edit-btn"
-                                                    form="edit-js-form-{{$js->id}}">
+                                            <button type="submit" style="color: white" class="btn btn-gradient edit-btn"
+                                                    form="edit-vs-form-{{$vs->id}}">
                                                 Edit
                                             </button>
                                         </div>
@@ -111,15 +122,15 @@
     <script type="module">
         $('.table').DataTable();
         /*-------------------------- TAMBAH USER -------------------------- */
-        $('#tambah-jenis-surat-form').on('submit', function (e) {
+        $(`#tambah-vaksin-form`).on('submit', function (e) {
             e.preventDefault();
             let data = new FormData(e.target);
-            axios.post('/dashboard/surat/jenis/tambah', Object.fromEntries(data))
+            axios.post('/catatan_vaksin/tambah', Object.fromEntries(data))
                 .then(() => {
-                    $('#tambah-jenis-surat-modal').css('display', 'none')
+                    $(`#tambah-vaksin-modal`).css('display', 'none')
                     swal.fire('Berhasil tambah data!', '', 'success').then(function () {
                         location.reload();
-                    })
+                    }) 
                 })
                 .catch(() => {
                     swal.fire('Gagal tambah data!', '', 'warning');
@@ -129,14 +140,14 @@
         /*-------------------------- EDIT USER -------------------------- */
         $('.editBtn').on('click', function (e) {
             e.preventDefault();
-            let idJS = $(this).attr('idJS');
-            $(`#edit-js-form-${idJS}`).on('submit', function (e) {
+            let idVaksin = $(this).attr('idVaksin');
+            $(`#edit-vaksin-form-${idVaksin}`).on('submit', function (e) {
                 e.preventDefault();
                 let data = Object.fromEntries(new FormData(e.target));
-                data['id'] = idJS;
-                axios.post(`/dashboard/surat/jenis/${idJS}/edit`, data)
+                data['id'] = idVaksin;
+                axios.post(`/dashboard/catatan_vaksin/edit`, data)
                     .then(() => {
-                        $(`#edit-modal-${idJS}`).css('display', 'none')
+                        $(`#edit-modal-${idVaksin}`).css('display', 'none')
                         swal.fire('Berhasil edit data!', '', 'success').then(function () {
                             location.reload();
                         })
@@ -149,7 +160,7 @@
 
         /*-------------------------- HAPUS USER -------------------------- */
         $('.table').on('click', '.hapusBtn', function () {
-            let idJS = $(this).closest('tr').attr('idJS');
+            let idVaksin = $(this).closest('tr').attr('idVaksin');
             swal.fire({
                 title: "Apakah anda ingin menghapus data ini?",
                 showCancelButton: true,
@@ -159,7 +170,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     //dilakukan proses hapus
-                    axios.delete(`/dashboard/surat/jenis/${idJS}/delete`)
+                    axios.delete(`/dashboard/catatan_vaksin/delete`)
                         .then(function (response) {
                             console.log(response);
                             if (response.data.success) {

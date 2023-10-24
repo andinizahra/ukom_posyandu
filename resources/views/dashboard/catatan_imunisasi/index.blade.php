@@ -1,43 +1,49 @@
-@php use Illuminate\Support\Facades\Storage;use Illuminate\Support\Facades\URL; @endphp
 @extends('layouts.app')
-@section('title', 'Manajemen Surat')
+@section('title', 'Catatan Imunisasi')
 @section('content')
     <div class="row">
         <div class="col d-flex justify-content-between mb-2">
-            <a class="btn btn-gradient" href="{{url('/dashboard')}}">
+            <a class="btn btn-gradient" style="background-color:#030A48; color: white" href="{{url('/dashboard')}}">
                 Kembali</a>
             <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                    data-bs-target="#tambah-surat-modal"> Tambah
+                    data-bs-target="#tambah-imunisasi-modal"> Tambah
             </button>
-            <!-- Tambah Surat Modal -->
-            <div class="modal fade" id="tambah-surat-modal" tabindex="-1"
+            <!-- Tambah imunisasi Modal -->
+            <div class="modal fade" id="tambah-imunisasi-modal" tabindex="-1"
                  aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Surat</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Imunisasi</h1>
                         </div>
                         <div class="modal-body">
-                            <form id="tambah-surat-form" enctype="multipart/form-data">
+                            <form id="tambah-imunisasi-form" enctype="multipart/form-data">
                                 <div class="form-group">
                                     @auth
                                         <input type="hidden" name="id_user" class="d-none"
                                                value="{{ Auth::user()["id"] }}">
                                     @endauth
-                                    <label>Jenis Surat</label>
-                                    <select name="id_jenis_surat" id="jenisSurat" class="form-select mb-3">
-                                        <option selected value="">Pilih jenis surat</option>
-                                        @foreach($jenis_surat as $js)
-                                            <option value="{{$js->id}}">{{$js->jenis_surat}}</option>
+                                    <label>catatan imunisasi</label>
+                                    <select name="id_catatan_imunisasi" id="catatanimunisasi" class="form-select mb-3">
+                                        @foreach($catatan_imunisasi as $m)
+                                        <option @if($m->catatan_imunisasi == 'polio') selected @endif value="polio">
+                                            POLIO 1
+                                        </option>
+                                        <option @if($m->catatan_imunisasi == 'polio') selected @endif value="polio">
+                                            POLIO 2
+                                        </option>
+                                        <option @if($m->catatan_imunisasi == 'polio') selected @endif value="polio">
+                                            POLIO 3
+                                        </option>
                                         @endforeach
                                     </select>
-                                    <label>Tanggal Surat</label>
-                                    <input type="datetime-local" name="tanggal_surat" id="tanggalSurat"
+                                    <label>Tanggal Imunisasi</label>
+                                    <input type="datetime-local" name="tanggal_imunisasi" id="tanggalimunisasi"
                                            class="form-control mb-3">
-                                    <label>Ringkasan</label>
+                                    <label>Deskripsi</label>
                                     <textarea name="ringkasan" class="form-control mb-3" rows="7"
-                                              placeholder="Tulis ringkasan surat disini..."
+                                              placeholder="Tulis ringkasan imunisasi disini..."
                                               style="resize: none"></textarea>
                                     <label class="d-block">File : </label>
                                     <div class="row d-flex align-items-center">
@@ -45,7 +51,7 @@
                                             <label for="fileUpload"
                                                    class="btn p-1 w-100 btn-outline-success form-control">Upload
                                                 File</label>
-                                            <input type="file" accept=".pdf" name="file" id="fileUpload" class="d-none">
+                                                <input type="file" accept=".pdf, image/*, .txt, .doc, .docx" name="file" id="fileUpload" class="d-none">
                                         </div>
                                         <div class="col p-0">
                                             <p class="fileName m-0 d-inline-block"></p>
@@ -56,11 +62,11 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" onclick="clearText()"
+                            <button type="button" style="color: white" class="btn btn-secondary" onclick="clearText()"
                                     data-bs-dismiss="modal">
                                 Cancel
                             </button>
-                            <button type="submit" class="btn btn-gradient" form="tambah-surat-form">Tambah</button>
+                            <button type="submit" class="btn btn-gradient" form="tambah-imunisasi-form">Tambah</button>
                         </div>
                     </div>
                 </div>
@@ -75,10 +81,10 @@
                         <thead>
                         <tr>
                             <th>No</th>
-                            <th>Jenis Surat</th>
+                            <th>id catatan imunisasi</th>
                             <th>User</th>
-                            <th>Tanggal Surat</th>
-                            <th>Ringkasan</th>
+                            <th>Tanggal imunisasi</th>
+                            <th>Deskripsi</th>
                             <th>File</th>
                             <th>Action</th>
                         </tr>
@@ -87,63 +93,63 @@
                         <?php
                         $no = 1;
                         ?>
-                        @foreach($surat as $s)
-                            <tr idSurat="{{$s->id}}">
+                        @foreach($catatan_imunisasi as $sc)
+                            <tr idimunisasi="{{$m->id}}">
                                 <td class="col-1">{{$no++}}</td>
-                                <td class="col-1">{{$s->jenis->jenis_surat}}</td>
-                                <td class="col-1">{{$s->user->username}}</td>
-                                <td class="col-2">{{$s->tanggal_surat}}</td>
-                                <td>{{$s->ringkasan}}</td>
+                                <td class="col-1">{{$m->catatan->catatan_imunisasi}}</td>
+                                <td class="col-1">{{$m->user->username}}</td>
+                                <td class="col-2">{{$m->tanggal_imunisasi}}</td>
+                                <td>{{$m->ringkasan}}</td>
                                 <td class="col-1">
-                                    @if($s->file)
-                                        <a class="btn btn-gradient"
-                                           href="{{url("dashboard/surat?path=$s->file", ['download'])}}">Download</a>
+                                    @if($m->file)
+                                        <a class="btn btn-gradient" style="color: white"
+                                           href="{{url("dashboard/catatan_imunisasi?path=m->file", ['download'])}}">Download</a>
                                     @else
                                         <p>No File</p>
                                     @endif
                                 </td>
                                 <td class="col-2">
                                     <!-- Button trigger edit modal -->
-                                    <button type="button" class="editBtn btn btn-warning" data-bs-toggle="modal"
-                                            data-bs-target="#edit-modal-{{$s->id}}" idSurat="{{$s->id}}">
+                                    <button type="button" style="color: white" class=" btn btn-gradient" data-bs-toggle="modal"
+                                            data-bs-target="#edit-modal-{{$m->id}}" idimunisasi="{{$m->id}}">
                                         Edit
                                     </button>
                                     <button class="hapusBtn btn btn-danger">Hapus</button>
                                 </td>
                             </tr>
-                            <!-- Edit User Modal -->
-                            <div class="modal fade" id="edit-modal-{{$s->id}}" tabindex="-1"
+                            <!-- Edit Imunisasi Modal -->
+                            <div class="modal fade" id="edit-modal-{{$m->id}}" tabindex="-1"
                                  aria-labelledby="exampleModalLabel"
                                  aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Surat</h1>
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit imunisasi</h1>
                                         </div>
                                         <div class="modal-body">
-                                            <form id="edit-surat-form-{{$s->id}}" enctype="multipart/form-data">
+                                            <form id="edit-imunisasi-form-{{$m->id}}" enctype="multipart/form-data">
                                                 <div class="form-group">
                                                     @auth
                                                         <input type="hidden" name="id_user" class="d-none"
                                                                value="{{ Auth::user()["id"] }}">
                                                     @endauth
-                                                    <label>Jenis Surat</label>
-                                                    <select name="id_jenis_surat" id="jenisSurat"
+                                                    <label>id catatan imunisasi</label>
+                                                    <select name="id_catatan_imunisasi" id="catatanimunisasi"
                                                             class="form-select mb-3">
-                                                        @foreach($jenis_surat as $js)
-                                                            <option value="{{$js->id}}"
-                                                                    @if($js->id === $s->id_jenis_surat) selected
-                                                                @endif>{{$js->jenis_surat}}</option>
+                                                        @foreach($catatan_imunisasi as $m)
+                                                            <option value="{{$m->id}}"
+                                                                    @if($m->id === $m->id_catatan_imunisasi) selected
+                                                                @endif>{{$m->catatan_imunisasi}}</option>
                                                         @endforeach
                                                     </select>
-                                                    <label>Tanggal Surat</label>
-                                                    <input type="datetime-local" name="tanggal_surat" id="tanggalSurat"
+                                                    <label>Tanggal imunisasi</label>
+                                                    <input type="datetime-local" name="tanggal_imunisasi" id="tanggalimunisasi"
                                                            class="form-control mb-3"
-                                                           value="{{$s->tanggal_surat}}">
+                                                           value="{{$m->tanggal_imunisasi}}">
                                                     <label>Ringkasan</label>
                                                     <textarea name="ringkasan" class="form-control mb-3" rows="7"
-                                                              placeholder="Tulis ringkasan surat disini..."
-                                                              style="resize: none">{{$s->ringkasan}}
+                                                              placeholder="Tulis ringkasan imunisasi disini..."
+                                                              style="resize: none">{{$m->ringkasan}}
                                                     </textarea>
                                                     <label class="d-block">File : </label>
                                                     <div class="row d-flex align-items-center">
@@ -164,12 +170,12 @@
                                             </form>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" onclick="clearText()"
+                                            <button type="button" style="color: white" class="btn btn-secondary" onclick="clearText()"
                                                     data-bs-dismiss="modal">
                                                 Cancel
                                             </button>
-                                            <button type="submit" class="btn btn-gradient edit-btn"
-                                                    form="edit-surat-form-{{$s->id}}">
+                                            <button type="submit" style="color: white" class="btn btn-gradient edit-btn"
+                                                    form="edit-imunisasi-form-{{$m->id}}">
                                                 Edit
                                             </button>
                                         </div>
@@ -200,16 +206,16 @@
             $(`.fileName`).text(fileName);
         })
 
-        /*-------------------------- TAMBAH SURAT -------------------------- */
-        $('#tambah-surat-form').on('submit', function (e) {
+        /*-------------------------- TAMBAH imunisasi -------------------------- */
+        $('#tambah-imunisasi-form').on('submit', function (e) {
             e.preventDefault();
             let data = new FormData(e.target);
             console.log(Object.fromEntries(data))
-            axios.post('/dashboard/surat', data, {
+            axios.post('/dashboard/catatan_imunisasi', data, {
                 'Content-Type': 'multipart/form-data'
             })
                 .then((res) => {
-                    $('#tambah-surat-modal').css('display', 'none')
+                    $('#tambah-imunisasi-modal').css('display', 'none')
                     swal.fire('Berhasil tambah data!', '', 'success').then(function () {
                         location.reload();
                     })
@@ -220,25 +226,23 @@
                 });
         })
 
-        /*-------------------------- EDIT SURAT -------------------------- */
+        /*-------------------------- EDIT imunisasi -------------------------- */
         $('.editBtn').on('click', function (e) {
-            $('input[type=file]').trigger('change');
-
             e.preventDefault();
-            let idSurat = $(this).attr('idSurat');
-            $(`#edit-surat-form-${idSurat}`).on('submit', function (e) {
+            console.log('clicked');
+            let id = $(this).attr('id_catatan_imunisasi');
+            $(`#edit-imunisasi-form-${id}`).on('submit', function (e) {
                 e.preventDefault();
-                let data = new FormData(this);
-                // console.log(Object.fromEntries(data));
-                axios.post(`/dashboard/surat/${idSurat}`, data)
-                    .then((res) => {
-                        $(`#edit-modal-${idSurat}`).css('display', 'none')
+                let data = new FormData(e.target);
+                console.log(data);
+                axios.post(`/dashboard/catatan_imunisasi/${id}/edit`, Object.fromEntries(data))
+                    .then(() => {
+                        $(`#edit-imunisasi-modal-${id}`).css('display', 'none')
                         swal.fire('Berhasil edit data!', '', 'success').then(function () {
                             location.reload();
                         })
                     })
-                    .catch((err) => {
-                        console.log(err)
+                    .catch(() => {
                         swal.fire('Gagal tambah data!', '', 'warning');
                     })
             })
@@ -246,7 +250,7 @@
 
         /*-------------------------- HAPUS USER -------------------------- */
         $('.table').on('click', '.hapusBtn', function () {
-            let idSurat = $(this).closest('tr').attr('idSurat');
+            let idimunisasi = $(this).closest('tr').attr('idimunisasi');
             swal.fire({
                 title: "Apakah anda ingin menghapus data ini?",
                 showCancelButton: true,
@@ -256,7 +260,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     //dilakukan proses hapus
-                    axios.delete(`/dashboard/surat/${idSurat}`)
+                    axios.delete(`/dashboard/catatan_imunisasi/${idimunisasi}`)
                         .then(function (response) {
                             console.log(response);
                             if (response.data.success) {

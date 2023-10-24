@@ -26,7 +26,7 @@ class UserUpdateRequest extends FormRequest
     {
         return [
             'username' => ['required', 'max:200'],
-            'role' => ['required', Rule::in(['admin', 'operator'])]
+            'role' => ['required', Rule::in(['admin', 'kader', 'keluarga'])]
         ];
     }
 

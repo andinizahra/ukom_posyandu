@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\JenisSurat>
  */
-class JenisSuratFactory extends Factory
+class CatatanImunisasiFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,11 @@ class JenisSuratFactory extends Factory
     public function definition(): array
     {
         return [
-            'jenis_surat' => fake()->name
+            'catatan_imunisasi' => fake()->name,
+            'id_catatan_vaksin' => fake()->name,
+            'id_user' => fake()->name,
+            'ringkasan' => fake()->name,
+            'file' => fake()->name 
         ];
     }
 }

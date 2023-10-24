@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Charts\JenisSuratChart;
-use App\Charts\SuratChart;
-use App\Models\JenisSurat;
+use App\Models\CatatanImunisasi;
 use App\Models\Log;
-use App\Models\Surat;
+use App\Models\CatatanVaksin;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -17,16 +15,18 @@ class DashboardController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(JenisSuratChart $jsChart, SuratChart $suratChart) {
-        $data = [
-            'user' => User::query()->count(),
-            'jenis_surat' => JenisSurat::query()->count(),
-            'surat' => Surat::query()->count(),
-            'log' => Log::query()->count(),
-            'jsChart' => $jsChart->build(),
-            'suratChart' => $suratChart->build()
-        ];
-
-        return view('dashboard.index', $data);
+    public function index() {
+        return view('dashboard.index');
+        
+        if(auth()->user()->role == 'admin'){
+            return view('dashboard.index');
+        }
+        if(auth()->user()->role == 'kader'){
+          
+            return view('dashboard.index');
+        }
+        if(auth()->user()->role == 'keluarga'){
+            return view('dashboard.index');
+        }
     }
 }

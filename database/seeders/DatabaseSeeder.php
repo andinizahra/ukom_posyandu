@@ -3,7 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\JenisSurat;
+
+use App\Models\CatatanImunisasi;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -14,7 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->count(2)->create();
-        JenisSurat::factory()->count(5)->create();
+        User::factory()->count(1)->create();
+        CatatanImunisasi::factory()->count(5)->create();
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
 
 return new class extends Migration {
-    private $spName = 'Logger';
+    private $spName = 'Active';
 
     /**
      * Run the migrations.
@@ -16,7 +16,7 @@ return new class extends Migration {
             "CREATE PROCEDURE $this->spName
             (
                 Username VARCHAR(100),
-                Action ENUM('INSERT', 'UPDATE', 'DELETE'),
+                Action ENUM('UPDATE', 'INSERT', 'DELETE'),
                 Log TEXT
             )
             MODIFIES SQL DATA

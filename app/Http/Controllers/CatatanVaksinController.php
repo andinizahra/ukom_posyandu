@@ -2,28 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SuratCreateRequest;
-use App\Http\Requests\SuratUpdateRequest;
-use App\Models\JenisSurat;
-use App\Models\Surat;
+use App\Http\Requests\CatatanVaksinCreateRequest;
+use App\Http\Requests\CatatanVaksinUpdateRequest;
+use App\Models\CatatanImunisasi;
+use App\Models\CatatanVaksin;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
-class SuratController extends Controller
+class CatatanVaksinController extends Controller
 {
     public function index(): View
     {
         $data = [
-            'surat' => Surat::with('jenis', 'user')->orderByDesc('tanggal_surat')->get(),
-            'jenis_surat' => JenisSurat::all()
+            
+            'catatan_vaksin' => CatatanVaksin::all()
         ];
 
-        return view('dashboard.surat.index', $data);
+        return view('dashboard.catatan_vaksin.index', $data);
     }
 
-    public function store(SuratCreateRequest $request)
+    public function store(CatatanVaksinCreateRequest $request)
     {
         $data = $request->validated();
 
@@ -32,16 +32,16 @@ class SuratController extends Controller
             $data['file'] = $path;
         }
 
-        $surat = Surat::query()->create($data);
+        $vaksin = CatatanVaksin::query()->create($data);
 
-        if (!$surat) {
+        if (!$vaksin) {
             return response()->json([
-                'message' => 'Failed create surat'
+                'message' => 'Failed create vaksin'
             ], 403);
         }
 
         return response()->json([
-            'message' => 'Surat created'
+            'message' => 'Vaksin created'
         ], 201);
     }
 
@@ -50,15 +50,15 @@ class SuratController extends Controller
         return Storage::download("public/$request->path");
     }
 
-    public function update(SuratUpdateRequest $request)
+    public function update(CatatanVaksinUpdateRequest $request)
     {
         $data = $request->validated();
-        $surat = Surat::query()->find($request->id);
+        $vaksin = CatatanVaksin::query()->find($request->id);
 
         if ($path = $request->file('file')) {
             // Delete old file
-            if ($surat->file) {
-                Storage::delete("public/$surat->file");
+            if ($vaksin->file) {
+                Storage::delete("public/$vaksin->file");
             }
 
             // Store new file
@@ -66,31 +66,31 @@ class SuratController extends Controller
             $data['file'] = $path;
         }
 
-        $surat->fill($data)->save();
+        $vaksin->fill($data)->save();
 
         return [
-            'message' => 'Berhasil update surat!'
+            'message' => 'Berhasil update vaksin!'
         ];
     }
 
     public function delete(int $id)
     {
-        $surat = Surat::query()->find($id);
+        $vaksin = CatatanVaksin::query()->find($id);
 
-        if (!$surat) {
+        if (!$vaksin) {
             throw new HttpResponseException(response()->json([
                 'message' => 'Not found'
             ])->setStatusCode(404));
         }
 
         // Deleting file
-        Storage::delete("public/$surat->file");
-        // Deleting surat
-        $surat->delete();
+        Storage::delete("public/$vaksin->file");
+        // Deleting vaksin
+        $vaksin->delete();
 
         return response()->json([
             'success' => true,
-            'message' => 'Berhasil menghapus surat'
+            'message' => 'Berhasil menghapus vaksin'
         ], 200);
     }
 }

@@ -1,23 +1,102 @@
-.bg-c-blue {
-    background: linear-gradient(45deg,blue,green);
+* {
+    font-family: 'Josefin Sans', sans-serif;
 }
 
-.bg-c-green {
-    background: linear-gradient(45deg,green,yellow);
+.cardPosyandu{
+    margin-top: 20px;
+    margin-left: 30px;
+    background-color: #ADD0D8;
+    color: #030A48;
+    padding: 20px;
+    text-align: center;
+    width: 200px;
+    height: 150px;
+    border-radius: 30px;
 }
 
-.bg-c-yellow {
-    background: linear-gradient(45deg,yellow,pink);
+
+
+.bg-light-white {
+    background-color: whitesmoke; 
+
 }
 
-.bg-c-pink {
-    background: linear-gradient(45deg,pink,blue);
+.navbar {
+    background-color: #D5E8EC;
+    height: 70px;
+}
+
+.btnLogout {
+    background-color: red;
+    color: white;   
+    text-decoration: none; 
+    padding: 10px 20px; 
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+}
+
+.sidebar {
+    background-color: #3F75C3;
+    color: white;
+    width: 200px;
+    height: 600px;
+    margin-left: -90px;
+    margin-top: -120px;
+    text-decoration: none;
+    float: left; 
+
+}
+
+.sidebar li {
+    padding-top: 30px;
+    padding-left: 20px;
+    list-style: none; 
+    color: white; 
+    display: flex; /* Menggunakan flexbox untuk mengatur layout */
+    align-items: center; /* Mengatur vertikal align ke tengah */
+}
+
+.sidebar li a {
+    color: white; 
+    text-decoration: none;
+}
+
+.sidebar li img {
+    margin-bottom: 5px;
+    margin-right: 10px; 
+}
+h2 {
+    margin-left: 210px; 
+}
+.garis-vertikal {
+    width: 2px; /* Lebar garis vertikal */
+    height: 20px; /* Tinggi garis vertikal */
+    background-color: #030A48; /* Warna garis vertikal (contoh: hitam) */
+    display: inline-block; /* Untuk mengatur elemen dalam satu baris */
+}
+.dashboard {
+    font-size: 12px;
+    color: #030A48;
+    text-decoration: none;
+}
+.hi {
+    font-size: 12px;
+    color: #030A48;
+    margin-left: 210px;
+    height: 50px;
+    background-color: #D9D9D9;
+    display: flex; /* Menggunakan flexbox untuk mengatur tata letak */
+    align-items: center; /* Mengatur vertikal align ke tengah */
+    padding-top: 5px; /* Jarak di atas elemen */
+    padding-left: 10px; /* Jarak di sebelah kiri elemen */
+    border-radius: 10px;
 }
 
 .card {
     border-radius: 5px;
-    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
-    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
     border: none;
     margin-bottom: 30px;
     -webkit-transition: all 0.3s ease-in-out;
@@ -40,22 +119,7 @@
     float: right;
 }
 
-.btn-gradient {
-    background: linear-gradient(to right, yellow, gold);
-    color: white; /* Mengubah warna teks menjadi putih agar terlihat dengan baik */
-    border: none; /* Menghapus garis tepi jika ada */
-    /* padding: 10px 20px;  */
- 
-}
 
-
-/* Mengatur efek gradient pada teks */
-.text-gradient {
-    background-image: linear-gradient(to right, yellow, gold); /* Ganti kode warna sesuai dengan gradient yang kamu inginkan */
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent; /* Membuat teks asli menjadi transparan */
-}
 
 
 

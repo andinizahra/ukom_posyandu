@@ -1,79 +1,64 @@
 @extends('layouts.app')
 @section('title', 'Dashboard')
 @section('content')
+<div class="row">
+</div>
+</div>
     <div class="container">
+        <div class="container-2" style="margin-left: -50px;">
+            <div class="dashboard">
+                <h2><b>Dashboard <div class="garis-vertikal"></div> Sehat Bersama Posyandu</b></h2>
+            </div>
+            <div class="hi">
+                <h3>Halo Admin !</h3>
+            </div>
+        </div>
+        <div class="sidebar">
+            <li><img src="/homeIcon.svg"><a href="{{url('dashboard/')}}">Dashboard</a></li>
+            <li><img src="/profil.svg"><a href="#">Profil</a></li>
+            <li><img src="/vaksin.svg"><a href="{{url('dashboard/catatan_vaksin')}}">Catatan Vaksin</a></li>
+            <li><img src="/imunisasi.svg"><a href="{{url('dashboard/catatan_imunisasi')}}">Catatan Imunisasi</a></li>
+            <li><img src="/jadwal.svg"><a href="#">Jadwal Posyandu</a></li>
+            <li><img src="/user.svg"><a href="{{url('dashboard/user')}}">Kelola User</a></li>
+            <li><img src="/activity.svg"><a href="">Log</a></li>
+        </div>
         <div class="row">
             @if(auth()->user()->role == 'admin')
                 <div class="col-3">
                     <a href="{{url('dashboard/user')}}" class="text-decoration-none">
-                        <div class="card bg-c-blue ">
-                            <div class="card-body text-white">
-                                <h1 class="text-right"><span
-                                        class="f-right">{{$user}}</span></h1>
-                                <h2>User</h2>
-                            </div>
+                        <div class="cardPosyandu">
+                            <img src="user.svg"> 
+                            <h1 style="font-size: 15px">Kelola User</h1>
                         </div>
                     </a>
                 </div>
                 <div class="col-3">
-                    <a href="{{url('dashboard/surat/jenis')}}" class="text-decoration-none">
-                        <div class="card bg-c-green">
-                            <div class="card-body text-white">
-                                <h1 class="text-right"><span
-                                        class="f-right">{{$jenis_surat}}</span></h1>
-                                <h2>Jenis Surat</h2>
-                            </div>
+                    <a href="{{url('dashboard/catatan_imunisasi')}}" class="text-decoration-none">
+                        <div class="cardPosyandu">
+                            <img src="imunisasi.svg">
+                            <h1 style="font-size: 15px">Catatan Imunisasi</h1>
                         </div>
                     </a>
                 </div>
             @endif
             <div class="col-3">
-                <a href="{{url('dashboard/surat')}}" class="text-decoration-none">
-                    <div class="card bg-c-yellow">
-                        <div class="card-body text-white">
-                            <h1 class="text-right"><span
-                                    class="f-right">{{$surat}}</span>
-                            </h1>
-                            <h2>Surat</h2>
-                        </div>
+                <a href="{{url('dashboard/catatan_vaksin')}}" class="text-decoration-none">
+                    <div class="cardPosyandu">
+                        <img src="vaksin.svg">
+                        <h1 style="font-size: 15px">Catatan Vaksin</h1>
                     </div>
                 </a>
             </div>
             <div class="col-3">
                 <a href="{{url('dashboard/log')}}" class="text-decoration-none">
-                    <div class="card bg-c-pink">
-                        <div class="card-body text-white">
-                            <h1 class="text-right"><span class="f-right">{{$log}}</span>
-                            </h1>
-                            <h2>Log</h2>
-                        </div>
+                    <div class="cardPosyandu">
+                        <img src="activity.svg">
+                        <h1 style="font-size: 15px">Log</h1>
                     </div>
                 </a>
             </div>
         </div>
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    {!! $suratChart->container() !!}
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    {!! $jsChart->container() !!}
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-@endsection
-@section('footer')
-    <script src="{{ $jsChart->cdn() }}"></script>
+ 
 
-    {{ $jsChart->script() }}
-    <script src="{{ $suratChart->cdn() }}"></script>
-
-    {{ $suratChart->script() }}
+    </div>
 @endsection

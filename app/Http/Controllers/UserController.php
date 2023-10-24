@@ -35,7 +35,7 @@ class UserController extends Controller
     public function update(int $id, UserUpdateRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $user = User::query()->find($id);
+        $user = User::query()->findOrFail($id);
 
         $user->fill($data);
         $user->save();

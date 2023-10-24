@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class JenisSurat extends Model
+class CatatanImunisasi extends Model
 {
     use HasFactory;
 
-    protected $table = 'jenis_surat';
+    protected $table = 'catatan_imunisasi';
     protected $primaryKey = 'id';
     protected $keyType = 'int';
-    protected $fillable = ['jenis_surat'];
+    protected $fillable = ['catatan_imunisasi'];
 
     public $timestamps = false;
 }

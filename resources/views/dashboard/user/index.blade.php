@@ -1,11 +1,11 @@
 @extends('layouts.app')
-@section('title', 'Manajemen User')
+@section('title', 'User')
 @section('content')
     <div class="row">
         <div class="col d-flex justify-content-between mb-2">
-            <a class="btn btn-gradient" href="{{url('/dashboard')}}">
+            <a class="btn" style="background-color:#030A48; color: white" href="{{url('/dashboard')}}">
                 Kembali</a>
-            <button type="button" class="btn btn-success" data-bs-toggle="modal"
+            <button type="button" class="btn btn-success" style="background-color: #030A48;" data-bs-toggle="modal"
                     data-bs-target="#tambah-user-modal"> Tambah
             </button>
             <!-- Tambah User Modal -->
@@ -28,18 +28,27 @@
                                            required autocomplete="off">
                                     <label>Role</label>
                                     <select name="role" class="form-select mb-3" required>
-                                        <option selected value="operator">Operator</option>
-                                        <option value="admin">Admin</option>
+                                        <option selected value="keluarga">Keluarga</option>
+                                        <option selected value="admin">Admin</option>
+                                        <option selected value="kader">Kader</option>
                                     </select>
+                                    <label class="d-block">File : </label>
+                                    <div class="row d-flex align-items-center">
+                                        <div class="col-3">
+                                            <label for="fileUpload"
+                                                   class="btn p-1 w-100 btn-outline-success form-control">Upload
+                                                File</label>
+                                                <input type="file" accept=".pdf, image/*, .txt, .doc, .docx" name="file" id="fileUpload" class="d-none">
+                                        </div>
                                     @csrf
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <button type="button" class="btn btn-secondary" style="color: white" data-bs-dismiss="modal">
                                 Cancel
                             </button>
-                            <button type="submit" class="btn btn-gradient" form="tambah-user-form">Tambah</button>
+                            <button type="submit" class="btn" style="background-color:#030A48; color:white;" form="tambah-user-form">Tambah</button>
                         </div>
                     </div>
                 </div>
@@ -53,25 +62,37 @@
                     <table class="table table-bordered table-hovered DataTable">
                         <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>No.</th>
                             <th>Username</th>
                             <th>Role</th>
+                            <th>File</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
+                            <?php
+                                $no = 1;
+                            ?>
                         @foreach($user as $u)
                             <tr idUser="{{$u->id}}">
-                                <td class="col-1">{{$u->id}}</td>
+                                <td class="col-1">{{$no++}}</td>
                                 <td>{{$u->username}}</td>
                                 <td class="text-capitalize">{{$u->role}}</td>
+                                <td class="col-1">
+                                    @if($u->file)
+                                        <a class="btn btn-gradient" style="color: white"
+                                           href="{{url("dashboard/user?path=$u->file", ['download'])}}">Download</a>
+                                    @else
+                                        <p>No File</p>
+                                    @endif
+                                </td>
                                 <td class="col-2">
                                     <!-- Button trigger edit modal -->
-                                    <button type="button" class="editBtn btn btn-gradient" data-bs-toggle="modal"
+                                    <button type="button" style="background-color:#030A48; color: white" class=" btn btn-gradient editBtn" data-bs-toggle="modal"
                                             data-bs-target="#edit-modal-{{$u->id}}" idUser="{{$u->id}}">
                                         Edit
                                     </button>
-                                    <button class="hapusBtn btn btn-danger">Hapus</button>
+                                    <button class="btn hapusBtn" style="background-color: #F80000; color:white;">Hapus</button>
                                 </td>
                             </tr>
                             <!-- Edit User Modal -->
@@ -81,10 +102,10 @@
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit User</h1>
+                                            <h1 class="modal-title fs-5 editBtn" id="exampleModalLabel">Edit User</h1>
                                         </div>
                                         <div class="modal-body">
-                                            <form id="edit-user-form-{{$u->id}}">
+                                            <form id="edit-user-form-{{$u->id}}" action="">
                                                 <div class="form-group">
                                                     <label>Username</label>
                                                     <input placeholder="Username" type="text" class="form-control mb-3"
@@ -93,13 +114,26 @@
                                                            required/>
                                                     <label>Role</label>
                                                     <select name="role" class="form-select mb-3" required>
-                                                        <option @if($u->role == 'operator') selected
-                                                                @endif value="operator">Operator
+                                                        <option @if($u->role == 'keluarga') selected
+                                                                @endif value="keluarga">Keluarga
                                                         </option>
                                                         <option @if($u->role == 'admin') selected @endif value="admin">
                                                             Admin
                                                         </option>
+                                                        <option @if($u->role == 'kader') selected @endif value="kader">
+                                                            Kader
+                                                        </option>
                                                     </select>
+                                                    <label class="d-block">File : </label>
+                                                    <div class="row d-flex align-items-center">
+                                                        <div class="col-3">
+                                                            <label
+                                                                class="btn p-1 w-100 btn-outline-success form-control">
+                                                                <span>Upload File</span>
+                                                                <input type="file" name="file" class="d-none"
+                                                                       id="fileUpload">
+                                                            </label>
+                                                        </div>
                                                     @csrf
                                                 </div>
                                             </form>
@@ -108,7 +142,7 @@
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                 Cancel
                                             </button>
-                                            <button type="submit" class="btn btn-gradient edit-btn"
+                                            <button type="submit" style="background-color:#030A48; color: white" class="btn btn-gradient edit-btn"
                                                     form="edit-user-form-{{$u->id}}">
                                                 Edit
                                             </button>
@@ -147,13 +181,15 @@
         /*-------------------------- EDIT USER -------------------------- */
         $('.editBtn').on('click', function (e) {
             e.preventDefault();
-            let idUser = $(this).attr('idUser');
-            $(`#edit-user-form-${idUser}`).on('submit', function (e) {
+            console.log('clicked');
+            let id = $(this).attr('idUser');
+            $(`#edit-user-form-${id}`).on('submit', function (e) {
                 e.preventDefault();
                 let data = new FormData(e.target);
-                axios.post(`/dashboard/user/${idUser}/edit`, Object.fromEntries(data))
+                console.log(data);
+                axios.post(`/dashboard/user/${id}/edit`, Object.fromEntries(data))
                     .then(() => {
-                        $(`#edit-modal-${idUser}`).css('display', 'none')
+                        $(`#edit-user-modal-${id}`).css('display', 'none')
                         swal.fire('Berhasil edit data!', '', 'success').then(function () {
                             location.reload();
                         })
@@ -164,7 +200,7 @@
             })
         })
 
-        /*-------------------------- HAPUS USER -------------------------- */
+        /*------- HAPUS USER ------- */
         $('.table').on('click', '.hapusBtn', function () {
             let idUser = $(this).closest('tr').attr('idUser');
             swal.fire({
@@ -175,7 +211,6 @@
                 confirmButtonColor: 'red'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    //dilakukan proses hapus
                     axios.delete(`/dashboard/user/${idUser}/delete`).then(function (response) {
                         console.log(response);
                         if (response.data.success) {

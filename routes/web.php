@@ -2,9 +2,9 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\JenisSuratController;
+use App\Http\Controllers\CatatanImunisasiController;
 use App\Http\Controllers\LogController;
-use App\Http\Controllers\SuratController;
+use App\Http\Controllers\CatatanVaksinController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,24 +38,25 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
             Route::delete('/user/{id}/delete', 'delete')->where('id', '[0-9]+');
         });
 
-        /* Jenis Surat */
-        Route::controller(JenisSuratController::class)->group(function () {
-            Route::get('/surat/jenis', 'index');
-            Route::post('/surat/jenis/tambah', 'store');
-            Route::post('/surat/jenis/{id}/edit', 'store');
-            Route::delete('/surat/jenis/{id}/delete', 'delete');
+        /* catatan imunisasi */
+        Route::controller(CatatanImunisasiController::class)->group(function () {
+            Route::get('/catatan_imunisasi', 'index');
+            Route::post('/catatan_imunisasi/tambah', 'store');
+            Route::get('/catatan_imunisasi/download', 'download');
+            Route::post('/catatan_imunisasi/{id}/edit', 'update');
+            Route::delete('/catatan_imunisasi/{id}/delete', 'delete');
         });
 
     });
 
-    /* Surat */
-    Route::controller(SuratController::class)->group(function () {
-        Route::get('/surat', 'index');
-        Route::get('/surat', 'index');
-        Route::post('/surat', 'store');
-        Route::get('/surat/download', 'download');
-        Route::post('/surat/{id}', 'update');
-        Route::delete('/surat/{id}', 'delete');
+    /* catatan_vaksin */
+    Route::controller(CatatanVaksinController::class)->group(function () {
+        Route::get('/catatan_vaksin', 'index');
+        Route::get('/catatan_vaksin', 'index');
+        Route::post('/catatan_vaksin', 'store');
+        Route::get('/catatan_vaksin/download', 'download');
+        Route::post('/catatan_vaksin/{id}', 'update');
+        Route::delete('/catatan_vaksin/{id}', 'delete');
     });
 
     /* Log */
