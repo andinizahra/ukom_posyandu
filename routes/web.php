@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CatatanImunisasiController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\CatatanVaksinController;
+use App\Http\Controllers\PencatatanBayiController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,15 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
             Route::delete('/user/{id}/delete', 'delete')->where('id', '[0-9]+');
         });
 
+          /* Pencatatan Bayi */
+    Route::controller(PencatatanBayiController::class)->group(function () {
+            Route::get('/bayi', 'index');
+            Route::post('/bayi/tambah', 'store');
+            Route::post('/bayi/{id}/edit', 'update')->where('id', '[0-9+]');
+            Route::delete('/bayi/{id}/delete', 'delete')->where('id', '[0-9]+');
+    });
+
+
         /* catatan imunisasi */
         Route::controller(CatatanImunisasiController::class)->group(function () {
             Route::get('/catatan_imunisasi', 'index');
@@ -63,4 +73,5 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
     Route::controller(LogController::class)->group(function () {
         Route::get('/log', 'index');
     });
+
 });

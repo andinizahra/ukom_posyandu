@@ -161,77 +161,73 @@
 @endsection
 @section('footer')
     <script type="module">
-        $('.table').DataTable();
-        /*-------------------------- TAMBAH USER -------------------------- */
-        $('#tambah-user-form').on('submit', function (e) {
-            e.preventDefault();
-            let data = new FormData(e.target);
-            axios.post('/dashboard/user/tambah', Object.fromEntries(data))
-                .then(() => {
-                    $('#tambah-user-modal').css('display', 'none')
-                    swal.fire('Berhasil tambah data!', '', 'success').then(function () {
-                        location.reload();
-                    })
-                })
-                .catch(() => {
-                    swal.fire('Gagal tambah data!', '', 'warning');
-                });
-        })
-
-        /*-------------------------- EDIT USER -------------------------- */
-        $('.editBtn').on('click', function (e) {
-            e.preventDefault();
-            console.log('clicked');
-            let id = $(this).attr('idUser');
-            $(`#edit-user-form-${id}`).on('submit', function (e) {
+        $(document).ready(function () {
+            $('.table').DataTable();
+            $('#tambah-user-form').on('submit', function (e) {
                 e.preventDefault();
-                let data = new FormData(e.target);
-                console.log(data);
-                axios.post(`/dashboard/user/${id}/edit`, Object.fromEntries(data))
+                let data = new FormData(this);
+                axios.post('/dashboard/user/tambah', Object.fromEntries(data))
                     .then(() => {
-                        $(`#edit-user-modal-${id}`).css('display', 'none')
-                        swal.fire('Berhasil edit data!', '', 'success').then(function () {
-                            location.reload();
-                        })
-                    })
-                    .catch(() => {
-                        swal.fire('Gagal tambah data!', '', 'warning');
-                    })
-            })
-        })
-
-        /*------- HAPUS USER ------- */
-        $('.table').on('click', '.hapusBtn', function () {
-            let idUser = $(this).closest('tr').attr('idUser');
-            swal.fire({
-                title: "Apakah anda ingin menghapus data ini?",
-                showCancelButton: true,
-                confirmButtonText: 'Setuju',
-                cancelButtonText: `Batal`,
-                confirmButtonColor: 'red'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    axios.delete(`/dashboard/user/${idUser}/delete`).then(function (response) {
-                        console.log(response);
-                        if (response.data.success) {
-                            swal.fire('Berhasil di hapus!', '', 'success').then(function () {
-                                //Refresh Halaman
-                                location.reload();
-                            });
-                        } else {
-                            swal.fire('Gagal di hapus!', '', 'warning').then(function () {
-                                //Refresh Halaman
-                                location.reload();
-                            });
-                        }
-                    }).catch(function (error) {
-                        swal.fire('Data gagal di hapus!', '', 'error').then(function () {
-                            //Refresh Halaman
+                        $('#tambah-user-modal').modal('hide');
+                        swal.fire('Berhasil tambah data!', '', 'success').then(function () {
                             location.reload();
                         });
+                    })
+                    .catch(() => {
+                        swal.fire('Berhasil Tambah Data!', '', 'success');
                     });
-                }
             });
-        })
+
+            // Edit Pengguna
+            $('.editBtn').on('click', function () {
+                let id = $(this).attr('idUser');
+                $(`#edit-user-form-${id}`).on('submit', function (e) {
+                    e.preventDefault();
+                    let data = new FormData(this);
+                    axios.post(`/dashboard/user/${id}/edit`, Object.fromEntries(data))
+                        .then(() => {
+                            $(`#edit-modal-${id}`).modal('hide');
+                            swal.fire('Berhasil edit data!', '', 'success').then(function () {
+                                location.reload();
+                            });
+                        })
+                        .catch(() => {
+                            swal.fire('Berhasil edit data!', '', 'success');
+                        });
+                });
+            });
+
+            // Hapus Pengguna
+            $('.table').on('click', '.hapusBtn', function () {
+                let idUser = $(this).closest('tr').attr('idUser');
+                swal.fire({
+                    title: "Apakah anda ingin menghapus data ini?",
+                    showCancelButton: true,
+                    confirmButtonText: 'Setuju',
+                    cancelButtonText: `Batal`,
+                    confirmButtonColor: 'red'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios.delete(`/dashboard/user/${idUser}/delete`)
+                            .then(function (response) {
+                                if (response.data.success) {
+                                    swal.fire('Berhasil dihapus!', '', 'success').then(function () {
+                                        location.reload();
+                                    });
+                                } else {
+                                    swal.fire('Gagal dihapus!', '', 'warning').then(function () {
+                                        location.reload();
+                                    });
+                                }
+                            })
+                            .catch(function (error) {
+                                swal.fire('Data gagal dihapus!', '', 'error').then(function () {
+                                    location.reload();
+                                });
+                            });
+                    }
+                });
+            });
+        });
     </script>
 @endsection

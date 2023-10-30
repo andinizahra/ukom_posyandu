@@ -14,7 +14,6 @@ return new class extends Migration
     {
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
-            $table->string('username');
             $table->enum('action', ['INSERT', 'UPDATE', 'DELETE']);
             $table->text('log');
             $table->dateTime('created_at')->useCurrent();

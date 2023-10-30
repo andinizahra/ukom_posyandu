@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\CatatanImunisasi;
+use App\Models\pencatatan_bayi;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -17,5 +18,6 @@ class DatabaseSeeder extends Seeder
     {
         User::factory()->count(1)->create();
         CatatanImunisasi::factory()->count(5)->create();
+        pencatatan_bayi::factory()->count(4)->create();
     }
 }

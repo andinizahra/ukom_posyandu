@@ -15,7 +15,6 @@
                         <thead>
                         <tr>
                             <th>Log ID</th>
-                            <th>User</th>
                             <th>Action</th>
                             <th>Log</th>
                             <th>Created At</th>
@@ -28,7 +27,6 @@
                         @foreach($logs as $log)
                             <tr>
                                 <td class="col-1">{{$no++}}</td>
-                                <td>{{$log->username}}</td>
                                 <td>{{$log->action}}</td>
                                 <td>{{$log->log}}</td>
                                 <td>{{$log->created_at}}</td>
